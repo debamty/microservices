@@ -7,14 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.coffeeshop.restapi.entity.customerorders.Customer;
 import com.coffeeshop.restapi.repository.customerorders.CustomerRepository;
-import com.coffeeshop.restapi.repository.customerorders.OrderRepository;
 
 @Service
 public class CustomerOrderService {
 	@Autowired
 	private CustomerRepository customerRepository;
-	@Autowired
-	private OrderRepository orderRepository;
 
 	public Customer addOrderForCustomer(Customer customerEntity) {
 		return wrapException(customerRepository -> customerRepository.save(customerEntity));

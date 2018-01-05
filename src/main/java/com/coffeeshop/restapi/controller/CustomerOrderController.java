@@ -41,13 +41,7 @@ public class CustomerOrderController {
 	}
 	
 	
-    
-	@RequestMapping(method = RequestMethod.PUT, value="/customerorder/{customerId}/orders" ,consumes=MediaType.APPLICATION_JSON_VALUE,produces="application/json")
-	public @ResponseBody  ResponseEntity<Customer> getSelectedOrdersOnly(@PathVariable String customerId, @RequestBody List<String> orderIdList) throws Exception {
-		Optional.of(customerId).orElseThrow(()->new IllegalArgumentException("CustomerId is either empty or invalid"));
-		Optional.of(orderIdList).filter(list->list.size()>0).orElseThrow(()->new IllegalArgumentException("Selected orderids are invalid"));
-		return  new ResponseEntity<Customer>(customerOrderService.getAllOrderForCustomer(customerId), HttpStatus.OK);
-	}
+   
 
 	
 

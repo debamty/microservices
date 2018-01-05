@@ -1,13 +1,24 @@
 package com.coffeeshop.restapi.entity.customerorders;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+
+
+import com.coffeeshop.restapi.entity.products.Product;
 
 @Entity
 @Table(name="orders")
@@ -20,8 +31,14 @@ public class Order {
 	private Date updatedDate = new Date();
 	private String createdBy;
 	private String lastUpdatedBy;
-	//private Status orderStatus;
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL )
+	@JoinTable(name = "order_product", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = { @JoinColumn(name = "product_id") })
+	private Set<Product> productSet= new HashSet<>();
 
+	public Set<Product> getProductSet() {
+		return productSet;
+	}
 	public Long getId() {
 		return id;
 	}
