@@ -1,19 +1,25 @@
 package com.coffeeshop.restapi.entity.products;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
 
 @Entity
-@Table(name="product_types")
+@Table(name="product_type")
 public class ProductType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +45,10 @@ public class ProductType {
 	private String lastUpdatedBy;
 	@Column(name="active_ind",nullable = false, columnDefinition = "TINYINT(1)")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-
 	private boolean isActive;
+	@OneToMany(cascade = CascadeType.MERGE, fetch= FetchType.LAZY )
+	@JoinColumn(name="product_type_code")
+	private List<Product> productList = new ArrayList<>();
 	
 	
 	public Date getCreatedDate() {
@@ -108,6 +116,9 @@ public class ProductType {
 	}
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+	public List<Product> getProductList() {
+		return productList;
 	}
 	
 

@@ -24,7 +24,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="product_id")
 	private Long id;
-	@Column (name="product_type_cd")
+	@Column (name="product_type_code")
 	private String productTypeCode;
 	@Column (name="no_of_units")
 	private Long quantity;
